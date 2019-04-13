@@ -1,5 +1,12 @@
 import React from 'react';
 
-const App = () => <h1>DogFinder!</h1>;
+import Controls from './Controls';
+import Map from './Map';
+
+const App = () =>
+  <>
+    <Controls />
+    <Map />
+  </>;
 
 export default App;
