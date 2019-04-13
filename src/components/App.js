@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
-import Controls from './Controls';
+import Title from './Title';
 import Map from './Map';
+import Controls from './Controls';
 
 class App extends Component {
   constructor(props) {
@@ -37,14 +38,24 @@ class App extends Component {
   render() {
     const { dogs, parks } = this.state;
 
+    const loadingStyle = {
+      display: 'flex',
+      height: '100%',
+      width: '100%',
+      position: 'absolute',
+      alignItems: 'center',
+      justifyContent: 'center',
+    };
+
     if (!dogs.length || !parks.length) {
-      return <>Loading...</>;
+      return <div style={loadingStyle}>Loading...</div>;
     }
 
     return (
       <>
-        <Controls />
+        <Title />
         <Map dogs={dogs} parks={parks} />
+        <Controls />
       </>
     );
   }

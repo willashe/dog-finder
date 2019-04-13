@@ -9,9 +9,6 @@ const initialState = {
 };
 
 const rootReducer = (state = initialState, action) => {
-  console.log(action);
-  console.log(state);
-
   switch (action.type) {
     case TOGGLE_DOGS_VISIBLE: {
       return {
@@ -31,9 +28,3 @@ const rootReducer = (state = initialState, action) => {
 };
 
 export default rootReducer;
-
-// @TODO is this needed?
-// export const getDogsVisible = (state) => {
-//   console.log(state);
-//   return state.dogsVisible;
-// };

@@ -1,5 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { FaDog } from 'react-icons/fa';
+import { FaTree } from 'react-icons/fa';
 
 import {
   toggleDogsVisible as toggleDogsVisibleAction,
@@ -7,22 +9,26 @@ import {
 } from '../redux/actions'
 
 const Controls = ({ toggleDogsVisible, toggleParksVisible }) => {
-  const style = {
+  const containerStyle = {
     position: 'absolute',
-    top: 0,
+    bottom: 0,
     left: 0,
     width: '100%',
-    height: 100,
     zIndex: 1,
-    background: 'rgba(255, 255, 255, 0.5)',
     fontSize: 48,
+    textAlign: 'center',
   };
 
+  const buttonStyle = {
+    fontSize: 128,
+    margin: '12px 32px',
+    cursor: 'pointer',
+  }
+
   return (
-    <div style={style}>
-      Controls
-      <button style={{ fontSize: 48 }} onClick={toggleDogsVisible}>Toggle Dogs</button>
-      <button style={{ fontSize: 48 }} onClick={toggleParksVisible}>Toggle Parks</button>
+    <div style={containerStyle}>
+      <FaDog style={buttonStyle} onClick={toggleDogsVisible} />
+      <FaTree style={buttonStyle} onClick={toggleParksVisible} />
     </div>
   );
 };

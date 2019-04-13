@@ -38,12 +38,12 @@ class Map extends Component {
   renderMarkers() {
     const { dogs, parks, dogsVisible, parksVisible } = this.props;
 
-    dogs.forEach((dog) => {
-      this.setMarker(Dog, dog, dogsVisible);
-    });
-
     parks.forEach((park) => {
       this.setMarker(Park, park, parksVisible);
+    });
+
+    dogs.forEach((dog) => {
+      this.setMarker(Dog, dog, dogsVisible);
     });
   }
 

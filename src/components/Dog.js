@@ -1,21 +1,14 @@
 import React from 'react';
+import { FaDog } from 'react-icons/fa';
 
 const Dog = ({ data, visible }) => {
   const style = {
-    border: '1px solid red',
-    background: 'red',
-    height: 100,
-    width: 100,
-    borderRadius: 50,
-    fontSize: 32,
-    textAlign: 'center',
+    display: visible === false ? 'none' : '',
+    fontSize: 96,
+    color: 'F17300',
   };
 
-  return (
-    <div style={{ ...style, display: visible === false ? 'none' : '' }}>
-      {data.name}
-    </div>
-  );
+  return <FaDog style={style} />;
 };
 
 export default Dog;
