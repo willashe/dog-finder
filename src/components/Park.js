@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Park = ({data}) => {
+const Park = ({ data, visible }) => {
   const style = {
     border: '1px solid green',
     background: 'green',
@@ -9,13 +9,13 @@ const Park = ({data}) => {
     borderRadius: 50,
     fontSize: 32,
     textAlign: 'center',
-  }
+  };
 
   return (
-    <div style={style}>
+    <div style={{ ...style, display: visible === false ? 'none' : '' }}>
       {data.name}
     </div>
   );
-}
+};
 
 export default Park;

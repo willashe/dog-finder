@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import mapboxgl from 'mapbox-gl';
+import { connect } from 'react-redux';
 
 import Dog from './Dog';
 import Park from './Park';
@@ -19,23 +20,36 @@ class Map extends Component {
       style: 'mapbox://styles/mapbox/streets-v9',
     });
 
-    const { dogs, parks } = this.props;
+    this.renderMarkers();
+  }
 
-    dogs.forEach((dog) => {
-      this.setMarker(Dog, dog);
-    });
-
-    parks.forEach((park) => {
-      this.setMarker(Park, park);
-    });
+  componentDidUpdate() {
+    this.removeMarkers();
+    this.renderMarkers();
   }
 
   componentWillUnmount() {
     this.map.remove();
   }
 
-  setMarker(component, data) {
+  markers = []
+
+  // @TODO: naming things...
+  renderMarkers() {
+    const { dogs, parks, dogsVisible, parksVisible } = this.props;
+
+    dogs.forEach((dog) => {
+      this.setMarker(Dog, dog, dogsVisible);
+    });
+
+    parks.forEach((park) => {
+      this.setMarker(Park, park, parksVisible);
+    });
+  }
+
+  setMarker(component, data, visible) {
     const containerNode = document.createElement('div');
+    this.markers.push(containerNode);
 
     new mapboxgl.Marker(containerNode)
       .setLngLat([data.longitude,data.latitude])
@@ -44,10 +58,19 @@ class Map extends Component {
     ReactDOM.render(
       React.createElement(
         component,
-        { data },
+        { data, visible },
       ),
       containerNode
     );
+  }
+
+  removeMarkers() {
+    this.markers.forEach((node) => {
+      ReactDOM.unmountComponentAtNode(node);
+      node.parentNode.removeChild(node);
+    });
+
+    this.markers = [];
   }
 
   render() {
@@ -64,4 +87,9 @@ class Map extends Component {
   }
 }
 
-export default Map;
+const mapStateToProps = ({ dogsVisible, parksVisible }) => ({
+  dogsVisible,
+  parksVisible,
+});
+
+export default connect(mapStateToProps)(Map);

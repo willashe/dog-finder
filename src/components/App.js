@@ -35,10 +35,7 @@ class App extends Component {
   }
 
   render() {
-    const {
-      dogs,
-      parks,
-    } = this.state;
+    const { dogs, parks } = this.state;
 
     if (!dogs.length || !parks.length) {
       return <>Loading...</>;
@@ -46,7 +43,7 @@ class App extends Component {
 
     return (
       <>
-        <Controls toggleDogs={this.toggleDogs} toggleParks={this.toggleParks} />
+        <Controls />
         <Map dogs={dogs} parks={parks} />
       </>
     );
