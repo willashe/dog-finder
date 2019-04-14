@@ -9,6 +9,7 @@ class App extends Component {
   constructor(props) {
     super(props);
 
+    // @TODO: this should be handled in redux, probably with redux-sagas for async data fetching
     this.state = {
       dogs: [],
       parks: [],
@@ -45,6 +46,7 @@ class App extends Component {
       position: 'absolute',
       alignItems: 'center',
       justifyContent: 'center',
+      fontFamily: "'Architects Daughter', cursive",
     };
 
     if (!dogs.length || !parks.length) {
