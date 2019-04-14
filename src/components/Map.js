@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
 import mapboxgl from 'mapbox-gl';
 import { connect } from 'react-redux';
 
@@ -89,6 +90,13 @@ class Map extends Component {
 
     return <div style={style} ref={this.mapContainer}></div>;
   }
+}
+
+Map.propTypes = {
+  dogs: PropTypes.array.isRequired,
+  parks: PropTypes.array.isRequired,
+  dogsVisible: PropTypes.bool.isRequired,
+  parksVisible: PropTypes.bool.isRequired,
 }
 
 const mapStateToProps = ({ dogsVisible, parksVisible }) => ({

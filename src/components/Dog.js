@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { FaDog } from 'react-icons/fa';
 
 const Dog = ({ data }) => {
@@ -10,5 +11,9 @@ const Dog = ({ data }) => {
 
   return <FaDog style={style} />;
 };
+
+Dog.propTypes = {
+  data: PropTypes.object.isRequired,
+}
 
 export default Dog;

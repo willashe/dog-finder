@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { FaDog } from 'react-icons/fa';
 import { FaTree } from 'react-icons/fa';
@@ -31,6 +32,13 @@ const Controls = ({ toggleDogsVisible, toggleParksVisible, dogsVisible, parksVis
       <FaTree style={{ ...buttonStyle, color: parksVisible === true ? 'rgba(0,0,0,1)' : 'rgba(0,0,0,0.3)' }} onClick={toggleParksVisible} />
     </div>
   );
+};
+
+Controls.propTypes = {
+  toggleDogsVisible: PropTypes.func.isRequired,
+  toggleParksVisible: PropTypes.func.isRequired,
+  dogsVisible: PropTypes.bool.isRequired,
+  parksVisible: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = ({ dogsVisible, parksVisible }) => ({

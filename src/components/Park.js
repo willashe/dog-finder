@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { FaTree } from 'react-icons/fa';
 
 const Park = ({ data }) => {
@@ -9,5 +10,9 @@ const Park = ({ data }) => {
 
   return <FaTree style={style} />;
 };
+
+Park.propTypes = {
+  data: PropTypes.object.isRequired,
+}
 
 export default Park;
