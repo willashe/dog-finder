@@ -13,7 +13,7 @@ class Dog extends Component {
 
     const dogStyle = {
       fontSize: 48,
-      color: 'F17300',
+      color: '#F17300',
       cursor: 'pointer',
     };
 

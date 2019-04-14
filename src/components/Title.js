@@ -18,7 +18,8 @@ const Title = () => {
 
   const githubStyle = {
     float: 'right',
-    fontSize: 36,
+    fontSize: 42,
+    color: 'black',
   }
 
   return (

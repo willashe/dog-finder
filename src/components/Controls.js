@@ -12,17 +12,20 @@ import {
 const Controls = ({ toggleDogsVisible, toggleParksVisible, dogsVisible, parksVisible }) => {
   const containerStyle = {
     position: 'absolute',
+    display: 'flex',
     bottom: 0,
-    left: 0,
-    width: '100%',
+    left: '50%',
+    transform: 'translateX(-50%)',
+    padding: '12px',
     zIndex: 1,
     textAlign: 'center',
     background: 'rgba(255, 255, 255, 0.75)',
+    borderRadius: '50px',
   };
 
   const buttonStyle = {
     fontSize: 48,
-    margin: '8px 32px',
+    margin: '0 20px',
     cursor: 'pointer',
   }
 
