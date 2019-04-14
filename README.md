@@ -1,6 +1,8 @@
 # Dog Finder
 
-## Quick-Start
+Demo live at [http://willashe.com/dog-finder/](http://willashe.com/dog-finder/)
+
+## Local Development Quick-Start
 
 1. Install dependencies
     ```bash
