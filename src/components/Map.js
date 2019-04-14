@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import mapboxgl from 'mapbox-gl';
 import { connect } from 'react-redux';
 
+import { selectDog as selectDogAction } from '../redux/actions';
 import Dog from './Dog';
 import Park from './Park';
 
@@ -52,7 +53,7 @@ class Map extends Component {
     }
   }
 
-  setMarker(component, data, visible) {
+  setMarker(component, data) {
     const containerNode = document.createElement('div');
     this.markers.push(containerNode);
 
@@ -63,9 +64,13 @@ class Map extends Component {
     ReactDOM.render(
       React.createElement(
         component,
-        { data, visible },
+        {
+          data,
+          handleClick: this.handleClickDog,
+          selected: this.props.selectedDog !== null && data.name === this.props.selectedDog.name,
+        },
       ),
-      containerNode
+      containerNode,
     );
   }
 
@@ -76,6 +81,10 @@ class Map extends Component {
     });
 
     this.markers = [];
+  }
+
+  handleClickDog = (dog) => {
+    this.props.selectDog(dog);
   }
 
   render() {
@@ -97,11 +106,18 @@ Map.propTypes = {
   parks: PropTypes.array.isRequired,
   dogsVisible: PropTypes.bool.isRequired,
   parksVisible: PropTypes.bool.isRequired,
+  selectDog: PropTypes.func.isRequired,
+  selectedDog: PropTypes.object,
 }
 
-const mapStateToProps = ({ dogsVisible, parksVisible }) => ({
+const mapStateToProps = ({ dogsVisible, parksVisible, selectedDog }) => ({
   dogsVisible,
   parksVisible,
+  selectedDog,
 });
 
-export default connect(mapStateToProps)(Map);
+const mapDispatchToProps = (dispatch) => ({
+  selectDog: (dog) => dispatch(selectDogAction(dog)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Map);
