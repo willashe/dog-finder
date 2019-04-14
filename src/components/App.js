@@ -9,7 +9,6 @@ class App extends Component {
   constructor(props) {
     super(props);
 
-    // @TODO: this should be handled in redux, probably with redux-sagas for async data fetching
     this.state = {
       dogs: [],
       parks: [],

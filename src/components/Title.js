@@ -2,7 +2,7 @@ import React from 'react';
 import { FaGithubSquare } from 'react-icons/fa';
 
 const Title = () => {
-  const style = {
+  const containerStyle = {
     position: 'absolute',
     top: 0,
     left: 0,
@@ -16,16 +16,16 @@ const Title = () => {
     fontFamily: "'Architects Daughter', cursive",
   };
 
-  const githubStyle = {
+  const githubIconStyle = {
     float: 'right',
     fontSize: 42,
     color: 'black',
   }
 
   return (
-    <div style={style}>
+    <div style={containerStyle}>
       <h1>DogFinder&reg;</h1>
-      <a href="https://github.com/willashe/dog-finder"><FaGithubSquare style={githubStyle} /></a>
+      <a href="https://github.com/willashe/dog-finder"><FaGithubSquare style={githubIconStyle} /></a>
     </div>
   );
 };

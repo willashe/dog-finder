@@ -1,4 +1,4 @@
-# Dog Finder
+# DogFinder
 
 Demo live at [http://willashe.com/dog-finder/](http://willashe.com/dog-finder/)
 

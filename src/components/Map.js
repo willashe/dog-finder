@@ -22,12 +22,12 @@ class Map extends Component {
       style: 'mapbox://styles/mapbox/streets-v9',
     });
 
-    this.renderMarkers();
+    this.setMarkers();
   }
 
   componentDidUpdate() {
     this.removeMarkers();
-    this.renderMarkers();
+    this.setMarkers();
   }
 
   componentWillUnmount() {
@@ -36,8 +36,7 @@ class Map extends Component {
 
   markers = []
 
-  // @TODO: naming things...
-  renderMarkers() {
+  setMarkers() {
     const { dogs, parks, dogsVisible, parksVisible } = this.props;
 
     if (parksVisible) {
