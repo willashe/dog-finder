@@ -9,7 +9,6 @@ const Title = () => {
     width: '100%',
     zIndex: 1,
     background: 'rgba(255, 255, 255, 0.75)',
-    fontSize: 24,
     lineHeight: 0.5,
     display: 'flex',
     alignItems: 'center',
@@ -19,7 +18,7 @@ const Title = () => {
 
   const githubStyle = {
     float: 'right',
-    fontSize: 48,
+    fontSize: 36,
   }
 
   return (
