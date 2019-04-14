@@ -1,10 +1,9 @@
 import React from 'react';
 import { FaTree } from 'react-icons/fa';
 
-const Park = ({ data, visible }) => {
+const Park = ({ data }) => {
   const style = {
-    display: visible === false ? 'none' : '',
-    fontSize: 96,
+    fontSize: 48,
     color: '#315659',
   };
 

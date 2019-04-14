@@ -7,23 +7,24 @@ const Title = () => {
     top: 0,
     left: 0,
     width: '100%',
-    height: 100,
     zIndex: 1,
-    background: 'rgba(255, 255, 255, 0.5)',
-    fontSize: 48,
+    background: 'rgba(255, 255, 255, 0.75)',
+    fontSize: 24,
+    lineHeight: 0.5,
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'space-between',
+    justifyContent: 'space-evenly',
+    fontFamily: "'Architects Daughter', cursive",
   };
 
   const githubStyle = {
     float: 'right',
-    fontSize: 128,
+    fontSize: 48,
   }
 
   return (
     <div style={style}>
-      <h1>DogFinder&trade;</h1>
+      <h1>DogFinder&reg;</h1>
       <a href="https://github.com/willashe/dog-finder"><FaGithubSquare style={githubStyle} /></a>
     </div>
   );

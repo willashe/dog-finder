@@ -1,11 +1,11 @@
 import React from 'react';
 import { FaDog } from 'react-icons/fa';
 
-const Dog = ({ data, visible }) => {
+const Dog = ({ data }) => {
   const style = {
-    display: visible === false ? 'none' : '',
-    fontSize: 96,
+    fontSize: 48,
     color: 'F17300',
+    cursor: 'pointer',
   };
 
   return <FaDog style={style} />;

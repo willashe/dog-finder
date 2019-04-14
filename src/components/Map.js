@@ -38,13 +38,17 @@ class Map extends Component {
   renderMarkers() {
     const { dogs, parks, dogsVisible, parksVisible } = this.props;
 
-    parks.forEach((park) => {
-      this.setMarker(Park, park, parksVisible);
-    });
+    if (parksVisible) {
+      parks.forEach((park) => {
+        this.setMarker(Park, park);
+      });
+    }
 
-    dogs.forEach((dog) => {
-      this.setMarker(Dog, dog, dogsVisible);
-    });
+    if (dogsVisible) {
+      dogs.forEach((dog) => {
+        this.setMarker(Dog, dog);
+      });
+    }
   }
 
   setMarker(component, data, visible) {
