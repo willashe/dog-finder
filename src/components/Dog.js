@@ -9,37 +9,19 @@ class Dog extends Component {
   }
 
   render() {
-    const { data, selected } = this.props;
-
-    const dogStyle = {
+    const style = {
       fontSize: 48,
       color: '#F17300',
       cursor: 'pointer',
     };
 
-    const infoPopupStyle = {
-      position: 'absolute',
-      background: 'rgba(70, 130, 180, 0.9)',
-      padding: 4,
-      color: 'white',
-      borderRadius: 3,
-      left: '50%',
-      transform: 'translate(-50%, -100%)',
-    }
-  
-    return (
-      <>
-        {selected ? <div style={infoPopupStyle}>{data.name}</div> : null}
-        <FaDog style={dogStyle} onClick={this.handleClick} />
-      </>
-    );
+    return <FaDog style={style} onClick={this.handleClick} />;
   }
 }
 
 Dog.propTypes = {
   data: PropTypes.object.isRequired,
   handleClick: PropTypes.func.isRequired,
-  selected: PropTypes.bool.isRequired,
 }
 
 export default Dog;

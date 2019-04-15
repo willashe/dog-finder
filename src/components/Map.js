@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import mapboxgl from 'mapbox-gl';
 import { connect } from 'react-redux';
 
-import { selectDog as selectDogAction } from '../redux/actions';
 import Dog from './Dog';
 import Park from './Park';
 
@@ -15,6 +14,12 @@ class Map extends Component {
     this.mapContainer = React.createRef();
   }
 
+  markers = {
+    dog: [],
+    park: [],
+  }
+  popup = null;
+
   componentDidMount() {
     mapboxgl.accessToken = 'pk.eyJ1Ijoid2lsbGFzaGUiLCJhIjoiY2p1Y3l6ZzdqMGJtOTRkcDhyYWY4NXdsciJ9.D5quxTBoM8OBfS7fZ7QC3g';
     this.map = new mapboxgl.Map({
@@ -22,42 +27,66 @@ class Map extends Component {
       style: 'mapbox://styles/mapbox/streets-v9',
     });
 
-    this.setMarkers();
+    this.setParkMarkers();
+    this.setDogMarkers();
   }
 
   componentDidUpdate() {
-    this.removeMarkers();
-    this.setMarkers();
+    const { dogsVisible, parksVisible } = this.props;
+
+    if (parksVisible) {
+      this.markers.park.length === 0 && this.setParkMarkers();
+    } else {
+      this.removeMarkers('park');
+    }
+
+    if (dogsVisible) {
+      this.markers.dog.length === 0 && this.setDogMarkers();
+    } else {
+      this.removeMarkers('dog');
+
+      if (this.popup) {
+        this.popup.remove();
+        this.popup = null;
+      }
+    }
   }
 
   componentWillUnmount() {
     this.map.remove();
   }
 
-  markers = []
+  setDogMarkers() {
+    const { dogs } = this.props;
 
-  setMarkers() {
-    const { dogs, parks, dogsVisible, parksVisible } = this.props;
-
-    if (parksVisible) {
-      parks.forEach((park) => {
-        this.setMarker(Park, park);
-      });
-    }
-
-    if (dogsVisible) {
-      dogs.forEach((dog) => {
-        this.setMarker(Dog, dog);
-      });
-    }
+    dogs.forEach((dog) => {
+      this.setMarker(Dog, dog, 'dog');
+    });
   }
 
-  setMarker(component, data) {
+  setParkMarkers() {
+    const { parks } = this.props;
+
+    parks.forEach((park) => {
+      this.setMarker(Park, park, 'park');
+    });
+  }
+
+  removeMarkers(type) {
+    this.markers[type].forEach((node) => {
+      ReactDOM.unmountComponentAtNode(node);
+      node.parentNode.removeChild(node);
+    });
+
+    this.markers[type] = [];
+  }
+
+  setMarker(component, data, type) {
     const containerNode = document.createElement('div');
-    this.markers.push(containerNode);
+    this.markers[type].push(containerNode);
 
     new mapboxgl.Marker(containerNode)
-      .setLngLat([data.longitude,data.latitude])
+      .setLngLat([data.longitude, data.latitude])
       .addTo(this.map);
 
     ReactDOM.render(
@@ -66,24 +95,31 @@ class Map extends Component {
         {
           data,
           handleClick: this.handleClickDog,
-          selected: this.props.selectedDog !== null && data.name === this.props.selectedDog.name,
         },
       ),
       containerNode,
     );
   }
 
-  removeMarkers() {
-    this.markers.forEach((node) => {
-      ReactDOM.unmountComponentAtNode(node);
-      node.parentNode.removeChild(node);
-    });
-
-    this.markers = [];
-  }
-
   handleClickDog = (dog) => {
-    this.props.selectDog(dog);
+    const popupOptions = {
+      offset: {
+        'top': [0, 24],
+        'right': [-24, 0],
+        'bottom': [0, -24],
+        'left': [24, 0],
+        'top-right': [-24, 24],
+        'top-left': [24, 24],
+        'bottom-right': [-24, -24],
+        'bottom-left': [24, -24],
+      },
+      closeButton: false,
+    };
+
+    this.popup = new mapboxgl.Popup(popupOptions)
+      .setLngLat([dog.longitude, dog.latitude])
+      .setHTML(`<h3 style="margin: 0">${dog.name}</h3>`)
+      .addTo(this.map);
   }
 
   render() {
@@ -105,18 +141,11 @@ Map.propTypes = {
   parks: PropTypes.array.isRequired,
   dogsVisible: PropTypes.bool.isRequired,
   parksVisible: PropTypes.bool.isRequired,
-  selectDog: PropTypes.func.isRequired,
-  selectedDog: PropTypes.object,
 }
 
-const mapStateToProps = ({ dogsVisible, parksVisible, selectedDog }) => ({
+const mapStateToProps = ({ dogsVisible, parksVisible }) => ({
   dogsVisible,
   parksVisible,
-  selectedDog,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  selectDog: (dog) => dispatch(selectDogAction(dog)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Map);
+export default connect(mapStateToProps)(Map);
